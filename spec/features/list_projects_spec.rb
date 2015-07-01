@@ -1,0 +1,37 @@
+require 'spec_helper'
+
+describe "Viewing the list of projects" do
+
+  it "shows the projects stored in the database" do
+    projectA = Project.create(name: "Documenting Mountain Gorillas",
+                              description: "Photographing a family of mountain gorillas over the course of a year.",
+                              target_pledge_amount: 100.00,
+                              pledging_ends_on: "2015-12-25",
+                              website: "http://project-a.com")
+
+    projectB = Project.create(name: "Filming dances of the Masai",
+                              description: "Documenting on film the different dances of the Masai.",
+                              target_pledge_amount: 30000.00,
+                              pledging_ends_on: "2015-12-25",
+                              website: "http://project-b.com")
+
+    projectC = Project.create(name: "Water Pump",
+                              description: "Fund and install a water pump in a village in Kenya.",
+                              target_pledge_amount: 5000.00,
+                              pledging_ends_on: "2015-12-25",
+                              website: "http://project-c.com")
+
+    visit projects_url
+
+    expect(page).to have_text("3 Projects")
+    expect(page).to have_text(projectA.name)
+    expect(page).to have_text(projectB.name)
+    expect(page).to have_text(projectC.name)
+
+    expect(page).to have_text(projectA.description)
+    expect(page).to have_text("$100.00")
+    expect(page).to have_text(projectA.pledging_ends_on)
+    expect(page).to have_text(projectA.website)
+  end
+
+end
