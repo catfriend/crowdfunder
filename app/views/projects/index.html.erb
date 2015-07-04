@@ -3,10 +3,10 @@
 <% @projects.each do |project| %>
   <article>
     <header>
-      <h2><%= project.name %></h2>
+      <h2><%= link_to(project.name, project) %></h2>
     </header>
     <p>
-      <%= truncate(project.description, length: 150) %>
+      <%= truncate(project.description, length: 50) %>
     </p>
     <table>
       <tr>
@@ -14,13 +14,15 @@
         <td><%= number_to_currency(project.target_pledge_amount) %></td>
       </tr>
       <tr>
-        <th>Website:</th>
-        <td><%= project.website %></td>
-      </tr>
-      <tr>
         <th>Pledging Ends:</th>
-        <td><%= project.pledging_ends_on %></td>
+        <td><%= format_pledging_ends_on(project) %></td>
+      </tr>
+          <tr>
+        <th>Project Website:</th>
+        <td><%= project.website %></td>
       </tr>
     </table>
   </article>
 <% end %>
+
+<%= link_to("Add New Project", new_project_path) %>

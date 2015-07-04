@@ -6,19 +6,19 @@ describe "Viewing the list of projects" do
     projectA = Project.create(name: "Documenting Mountain Gorillas",
                               description: "Photographing a family of mountain gorillas over the course of a year.",
                               target_pledge_amount: 100.00,
-                              pledging_ends_on: "2015-12-25",
+                              pledging_ends_on: 1.day.from_now,
                               website: "http://project-a.com")
 
     projectB = Project.create(name: "Filming dances of the Masai",
                               description: "Documenting on film the different dances of the Masai.",
                               target_pledge_amount: 30000.00,
-                              pledging_ends_on: "2015-12-25",
+                              pledging_ends_on: 1.week.from_now,
                               website: "http://project-b.com")
 
     projectC = Project.create(name: "Water Pump",
                               description: "Fund and install a water pump in a village in Kenya.",
                               target_pledge_amount: 5000.00,
-                              pledging_ends_on: "2015-12-25",
+                              pledging_ends_on: 1.month.from_now,
                               website: "http://project-c.com")
 
     visit projects_url
@@ -30,7 +30,7 @@ describe "Viewing the list of projects" do
 
     expect(page).to have_text(projectA.description)
     expect(page).to have_text("$100.00")
-    expect(page).to have_text(projectA.pledging_ends_on)
+    expect(page).to have_text("1 day remaining")
     expect(page).to have_text(projectA.website)
   end
 
