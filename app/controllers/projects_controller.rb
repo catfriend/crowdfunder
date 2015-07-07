@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   def index
-    @projects = Project.all
+    @projects = Project.accepting_pledges
   end
 
   def show
@@ -36,7 +36,7 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:name, :description, :pledging_ends_on, :target_pledge_amount, :website)
+    params.require(:project).permit(:name, :description, :pledging_ends_on, :target_pledge_amount, :website, :team_leader, :image_file_name)
   end
 end
 
