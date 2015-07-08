@@ -1,0 +1,33 @@
+@import "colors";
+
+body {
+  color: $primary-text-color;
+  background-image: image-url("background.jpg");
+  font-family: "Helvetica Neue", Helvetica, Arial;
+}
+
+header#page-header {
+  color: $primary-color;
+  background: $secondary-color;
+  padding: 5px;
+  border-bottom: 15px solid $primary-color;
+}
+
+ h1 {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+footer#page-footer {
+  color: $secondary-color;
+  background: $primary-color;
+  text-align: center;
+  padding: 5px;
+  border-top: 8px solid $secondary-color;
+}
+
+aside#sidebar {
+  float: right;
+  background: #CCE8CC;
+  width: 200px;
+}
