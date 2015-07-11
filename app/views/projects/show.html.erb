@@ -22,6 +22,11 @@
   <p>
     <%= @project.team_leader %>
   </p>
+    <h3>Pledges</h3>
+  <p>
+    <%= link_to pluralize(@project.pledges.size, "pledge"), 
+                project_pledges_path(@project) %>
+  </p>
   <h3>Image</h3>
   <p>
     <%= (@project.image_file_name) %>
