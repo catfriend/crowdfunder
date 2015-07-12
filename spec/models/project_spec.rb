@@ -117,4 +117,42 @@ describe "A project" do
     }.to change(Pledge, :count).by(-1)
   end
 
+  it "calculates the total amount pledged as the sum of all pledges" do
+    project = Project.create(project_attributes)
+    project.pledges.create!(pledge_attributes(amount: 25.00))
+    project.pledges.create!(pledge_attributes(amount: 50.00))
+
+    expect(project.total_amount_pledged).to eq(75.00)
+  end
+
+  it "calculates the pledge amount outstanding" do
+    project = Project.create(project_attributes(target_pledge_amount: 100.00))
+    project.pledges.create!(pledge_attributes(amount: 50.00))
+
+    expect(project.amount_outstanding).to eq(50.00)
+  end
+
+  it "is funded if the target pledge amount has been reached" do
+    project = Project.create(project_attributes(target_pledge_amount: 100.00))
+    project.pledges.create!(pledge_attributes(amount: 50.00))
+    project.pledges.create!(pledge_attributes(amount: 50.00))
+
+    expect(project.funded?).to be_true
+  end
+
+  it "is not funded if the target pledge amount has not been reached" do
+    project = Project.create(project_attributes(target_pledge_amount: 100.00))
+    project.pledges.create!(pledge_attributes(amount: 50.00))
+
+    expect(project.funded?).to be_false
+  end
+
+  it "decrements the amount outstanding when a pledge is created" do
+    project = Project.create(project_attributes(target_pledge_amount: 50.00))
+
+    expect {
+      project.pledges.create!(pledge_attributes(amount: 25.00))
+    }.to change(project, :amount_outstanding).by(-25)
+  end
+
 end

@@ -22,4 +22,16 @@ class Project < ActiveRecord::Base
   def pledging_expired?
     pledging_ends_on < Date.today
   end
+
+  def total_amount_pledged
+    pledges.sum(:amount) || 0
+  end
+
+  def amount_outstanding
+    target_pledge_amount - total_amount_pledged
+  end
+
+  def funded?
+    amount_outstanding <= 0
+  end
 end
