@@ -11,6 +11,10 @@ class UsersController < ApplicationController
 		@user = User.new
 	end
 
+	def username
+		@user = User.find(params[:id])
+	end
+
 	def create
 	  @user = User.new(user_params)
 	  if @user.save
@@ -35,8 +39,8 @@ class UsersController < ApplicationController
 	end
 
 	def destroy
-		@user = User.find(params[:id])
 		@user.destroy
+		session[:user_id] = nil
 		redirect_to root_url, alert: "Account successfully deleted!"
 	end
 
